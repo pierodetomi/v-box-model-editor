@@ -1,6 +1,23 @@
 {
   "name": "v-box-model-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "A Vue 3 component for editing the box model of a DOM element",
+  "homepage": "https://github.com/pierodetomi/v-box-model-editor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pierodetomi/v-box-model-editor.git"
+  },
+  "keywords": [
+    "component",
+    "vue",
+    "vue3",
+    "html",
+    "typescript",
+    "github",
+    "repos",
+    "repositories"
+  ],
+  "author": "Piero De Tomi <pierodetomi@gmail.com>",
   "license": "MIT",
   "type": "module",
   "files": ["dist"],
