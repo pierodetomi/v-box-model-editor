@@ -1,0 +1,36 @@
+{
+  "name": "v-box-model-editor",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "files": ["dist"],
+  "main": "dist/v-box-model-editor.umd.cjs",
+  "module": "dist/v-box-model-editor.js",
+  "exports": {
+    ".": {
+      "import": "./dist/v-box-model-editor.js",
+      "require": "./dist/v-box-model-editor.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "types": "vue-tsc",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
+    "vue": "^3.4.15"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.3",
+    "sass": "^1.71.0",
+    "sass-loader": "^14.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.0",
+    "vue-tsc": "^1.8.27"
+  }
+}
