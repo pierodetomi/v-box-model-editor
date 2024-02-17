@@ -8,8 +8,8 @@
 
       <SvgIcon class="toggle-lock-icon"
                type="mdi"
-               width="18"
-               height="18"
+               width="16"
+               height="16"
                viewBox="0 0 24 22"
                :path="margin.isLinked ? linkIcon : unlinkIcon"
                @click="toggleLinkStatus('margin')">
@@ -70,8 +70,8 @@
 
         <SvgIcon class="toggle-lock-icon"
                  type="mdi"
-                 width="18"
-                 height="18"
+                 width="16"
+                 height="16"
                  viewBox="0 0 24 22"
                  :path="border.isLinked ? linkIcon : unlinkIcon"
                  @click="toggleLinkStatus('border')">
@@ -132,8 +132,8 @@
 
           <SvgIcon class="toggle-lock-icon"
                    type="mdi"
-                   width="18"
-                   height="18"
+                   width="16"
+                   height="16"
                    viewBox="0 0 24 22"
                    :path="padding.isLinked ? linkIcon : unlinkIcon"
                    @click="toggleLinkStatus('padding')">
@@ -190,27 +190,40 @@
              @mouseenter.stop="() => { makeAllWhiteExcept($refs.size as HTMLDivElement); }"
              @mouseleave.stop="() => { resetWhite($refs.size, $refs.padding); }">
           <div class="size-container__value-container">
-            <span v-if="editingMeasure !== 'size-width'"
-                  @click.stop="() => { edit('size', 'width'); }">
-              {{ size.width ?? '...' }}
-            </span>
-            <input v-else
-                   type="number"
-                   ref="inputValue"
-                   :value="size.width"
-                   @change="event => { onSizeChange('width', event); }"
-                   @blur="() => { editingMeasure = null; }" />
-            x
-            <span v-if="editingMeasure !== 'size-height'"
-                  @click.stop="() => { edit('size', 'height'); }">
-              {{ size.height ?? '...' }}
-            </span>
-            <input v-else
-                   type="number"
-                   ref="inputValue"
-                   :value="size.height"
-                   @change="event => { onSizeChange('height', event); }"
-                   @blur="() => { editingMeasure = null; }" />
+            <div class="width">
+              <span v-if="editingMeasure !== 'size-width'"
+                    @click.stop="() => { edit('size', 'width'); }">
+                {{ size.width ?? '...' }}
+              </span>
+              <input v-else
+                     type="number"
+                     ref="inputValue"
+                     :value="size.width"
+                     @change="event => { onSizeChange('width', event); }"
+                     @blur="() => { editingMeasure = null; }" />
+
+              <BoxModelUnitSelector v-show="size.width"
+                                    :availableUnits="availableUnits"
+                                    :value="size.widthUnit"
+                                    @update:value="selectedUnit => { setAndNotify('size', size, model => setUnit(model, selectedUnit, 'width')) }" />
+            </div>
+
+            <div class="height">
+              <span v-if="editingMeasure !== 'size-height'"
+                    @click.stop="() => { edit('size', 'height'); }">
+                {{ size.height ?? '...' }}
+              </span>
+              <input v-else
+                     type="number"
+                     ref="inputValue"
+                     :value="size.height"
+                     @change="event => { onSizeChange('height', event); }"
+                     @blur="() => { editingMeasure = null; }" />
+              <BoxModelUnitSelector v-show="size.height"
+                                    :availableUnits="availableUnits"
+                                    :value="size.heightUnit"
+                                    @update:value="selectedUnit => { setAndNotify('size', size, model => setUnit(model, selectedUnit, 'height')) }" />
+            </div>
           </div>
         </div>
       </div>
@@ -281,7 +294,7 @@ export default defineComponent({
       setter(model);
       this.$emit(`update:${propertyNameToNotify}`, model);
     },
-    setUnit(model: any, unit: string, side: 'top' | 'right' | 'bottom' | 'left') {
+    setUnit(model: any, unit: string, side: 'top' | 'right' | 'bottom' | 'left' | 'width' | 'height') {
       if (model.hasOwnProperty('isLinked') && model.isLinked) {
         model.topUnit = model.rightUnit = model.bottomUnit = model.leftUnit = unit;
 
@@ -334,7 +347,7 @@ $input-font-size: 11px;
 $input-color: #000;
 
 $containers-border-color: #000;
-$containers-padding: 22px 35px;
+$containers-padding: 30px 35px;
 
 $margin-container-background: #f9cc9d;
 $border-container-background: #ffeebc;
@@ -359,10 +372,24 @@ $size-container-background: #a0c6e8;
   transform: translateY(-50%);
   color: $input-color;
   font-size: $input-font-size;
+  text-align: center;
+  width: 28px;
 
   > :nth-child(1) {
     margin-bottom: -6px;
   }
+}
+
+.vertical-input__left {
+  display: flex;
+  flex-direction: column;
+  left: 2px;
+}
+
+.vertical-input__right {
+  display: flex;
+  flex-direction: column;
+  right: 2px;
 }
 
 .container__label {
@@ -370,7 +397,7 @@ $size-container-background: #a0c6e8;
   top: 0;
   left: 4px;
   color: #000;
-  font-size: 12px;
+  font-size: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -389,7 +416,7 @@ $size-container-background: #a0c6e8;
 
 .margin-container {
   width: 300px;
-  height: 180px;
+  height: 220px;
   position: relative;
   background: $margin-container-background;
   padding: $containers-padding;
@@ -406,7 +433,7 @@ $size-container-background: #a0c6e8;
 
   .margin-input__top {
     @extend .horizontal-input;
-    top: 2px;
+    top: 10px;
   }
 
   .margin-input__bottom {
@@ -416,18 +443,12 @@ $size-container-background: #a0c6e8;
 
   .margin-input__left {
     @extend .vertical-input;
-
-    display: flex;
-    flex-direction: column;
-    left: 5px;
+    @extend .vertical-input__left;
   }
 
   .margin-input__right {
     @extend .vertical-input;
-
-    display: flex;
-    flex-direction: column;
-    right: 5px;
+    @extend .vertical-input__right;
   }
 }
 
@@ -450,7 +471,7 @@ $size-container-background: #a0c6e8;
 
   .border-input__top {
     @extend .horizontal-input;
-    top: 2px;
+    top: 10px;
   }
 
   .border-input__bottom {
@@ -460,16 +481,12 @@ $size-container-background: #a0c6e8;
 
   .border-input__left {
     @extend .vertical-input;
-    display: flex;
-    flex-direction: column;
-    left: 5px;
+    @extend .vertical-input__left;
   }
 
   .border-input__right {
     @extend .vertical-input;
-    display: flex;
-    flex-direction: column;
-    right: 5px;
+    @extend .vertical-input__right;
   }
 }
 
@@ -492,7 +509,7 @@ $size-container-background: #a0c6e8;
 
   .padding-input__top {
     @extend .horizontal-input;
-    top: 2px;
+    top: 10px;
   }
 
   .padding-input__bottom {
@@ -502,16 +519,12 @@ $size-container-background: #a0c6e8;
 
   .padding-input__left {
     @extend .vertical-input;
-    display: flex;
-    flex-direction: column;
-    left: 5px;
+    @extend .vertical-input__left;
   }
 
   .padding-input__right {
     @extend .vertical-input;
-    display: flex;
-    flex-direction: column;
-    right: 5px;
+    @extend .vertical-input__right;
   }
 }
 
@@ -524,7 +537,7 @@ $size-container-background: #a0c6e8;
   border: 1px solid $containers-border-color;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   box-sizing: border-box;
 
   &.white {
@@ -535,6 +548,31 @@ $size-container-background: #a0c6e8;
     display: flex;
     flex-direction: row;
     font-size: $input-font-size + 1px;
+
+    .width {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      border-right: 1px dashed #669dcf;
+      padding-right: 2px;
+      justify-content: center;
+
+      > :nth-child(1) {
+        margin-bottom: -8px;
+      }
+    }
+
+    .height {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-left: 2px;
+      justify-content: center;
+
+      > :nth-child(1) {
+        margin-bottom: -8px;
+      }
+    }
   }
 }
-</style>../models/box-model../models/size-model
+</style>
