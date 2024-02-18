@@ -17,7 +17,7 @@ This is totally inspired to the Chrome Dev Tools component.
 You can install the package in your project with the following command:
 
 ```bash
-npm install v-box-model-editor
+npm install @pierodetomi/v-box-model-editor
 ```
 
 ## Usage
