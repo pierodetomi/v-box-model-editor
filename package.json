@@ -1,6 +1,6 @@
 {
   "name": "@pierodetomi/v-box-model-editor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Vue 3 component for editing the box model of a DOM element",
   "homepage": "https://github.com/pierodetomi/v-box-model-editor",
   "repository": {

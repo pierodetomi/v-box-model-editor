@@ -46,7 +46,7 @@ import '@pierodetomi/v-box-model-editor/style.css'; // Import component's style
 The ```margin```, ```border``` and ```padding``` properties use the same input/output model, the ```BoxModel```, with the following structure:
 
 ```TypeScript
-export class BoxModel {
+class BoxModel {
   public isLinked: boolean = true;
 
   public top: number = null;
@@ -70,7 +70,7 @@ export class BoxModel {
 The ```size``` property uses the ```SizeModel``` input/output model, with the following structure:
 
 ```TypeScript
-export class SizeModel {
+class SizeModel {
   public width: number = null;
   
   public widthUnit: string = 'px';
