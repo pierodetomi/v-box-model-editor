@@ -25,13 +25,23 @@ This library exports the ```BoxModelEditor``` component. You can use it as follo
 
 ```typescript
 // INSIDE YOUR CODE
-import { BoxModelEditor } from '@pierodetomi/v-box-model-editor'; // Import component
+import { BoxModel, SizeModel, BoxModelEditorOptions, BoxModelEditor } from '@pierodetomi/v-box-model-editor'; // Import component
 import '@pierodetomi/v-box-model-editor/style.css'; // Import component's style
+
+[...]
+
+margin = new BoxModel();
+border = new BoxModel();
+padding = new BoxModel();
+size = new SizeModel();
+options = new BoxModelEditorOptions();
+options.availableUnits = [ /* you can override the default available units */ ]
+options.style.[style_property] = ... // Replace [style_property] with one of the available options: see below
 ```
 
 ```HTML
 <!-- INSIDE YOUR TEMPLATE -->
-<BoxModelEditor :availableUnits="['px', 'em', 'rem', 'vw', 'vh', '%']"
+<BoxModelEditor :options="options"
                 :margin="margin"
                 :border="border"
                 :padding="padding"
@@ -41,6 +51,32 @@ import '@pierodetomi/v-box-model-editor/style.css'; // Import component's style
                 @update:padding="value => padding = value"
                 @update:size="value => size = value" />
 ```
+
+## Available ```options```
+The ```options``` property expects an instance of the ```BoxEditorModelOptions``` class. This class exposes the following options:
+
+| Option | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| ```availableUnits``` | ```string[]``` | ```['px', 'em', 'rem', 'vw', 'vh', '%']``` | The units that are available when the user opens the units dropdown |
+| ```style``` | ```BoxModelEditorStyleOptions``` | ```new BoxModelEditorStyleOptions()``` | The style options that can be used to personalize the appearance of the component |
+
+The ```BoxModelEditorStyleOptions``` class exposes the following options:
+
+| Option | Type | Default Value | Description |
+| --- | --- | --- | --- |
+| ```bordersColor``` | ```string``` | ```'#000'``` | The color of the borders of the visual containers |
+| ```marginBackgroundColor``` | ```string``` | ```'#f9cc9d'``` | The background color of the **```margin```** model container |
+| ```borderBackgroundColor``` | ```string``` | ```'#ffeebc'``` | The background color of the **```border```** model container |
+| ```paddingBackgroundColor``` | ```string``` | ```'#c4dfb8'``` | The background color of the **```padding```** model container |
+| ```sizeBackgroundColor ``` | ```string``` | ```'#a0c6e8'``` | The background color of the **```size```** model container |
+| ```textColor``` | ```string``` | ```'#252525'``` | The color of the text (labels & numbers) |
+| ```inputFontSize``` | ```number``` | ```11``` | The font size of the inputs & values displayed |
+| ```unitDropdownBackgroundColor``` | ```string``` | ```'#f9f9f9'``` | The background color of the units dropdown |
+| ```unitDropdownTextColor``` | ```string``` | ```'#252525'``` | The text color of the units dropdown |
+| ```unitDropdownHoverBackgroundColor``` | ```string``` | ```'#d1d1d1'``` | The background color of an item of the units dropdown, when hovered |
+| ```unitDropdownHoverTextColor``` | ```string``` | ```'#252525'``` | The text color of an item of the units dropdown, when hovered |
+| ```unitDropdownFontSize``` | ```number``` | ```12``` | The font size of the text inside the units dropdown |
+
 
 ## ```box``` and ```size``` models
 The ```margin```, ```border``` and ```padding``` properties use the same input/output model, the ```BoxModel```, with the following structure:

@@ -16,8 +16,9 @@
     </span>
 
     <div ref="dropdown"
-         class="units-dropdown__content">
+         class="vbme-units-dropdown__content">
       <div v-for="unit in availableUnits"
+           class="vbme-units-dropdown__content__item"
            :key="unit"
            @click="() => { updateValue(unit) }">{{ unit }}</div>
     </div>
@@ -28,14 +29,30 @@
 import { defineComponent, type PropType } from 'vue';
 import { mdiMenuDown } from '@mdi/js';
 import SvgIcon from '@jamescoyle/vue-icon';
+import { BoxModelEditorStyleOptions } from '../models/box-model-editor-style-options';
 
 export default defineComponent({
   components: { SvgIcon },
   props: {
     availableUnits: Array<string>,
+    backgroundColor: String as PropType<string>,
+    textColor: String as PropType<string>,
+    fontSize: Number as PropType<number>,
     value: {
       type: String as PropType<string>,
       required: true
+    }
+  },
+  computed: {
+    styles() {
+      const defaultStyles = new BoxModelEditorStyleOptions();
+      return {
+        '--background-color': this.backgroundColor ?? defaultStyles.unitDropdownBackgroundColor,
+        '--text-color': this.textColor ?? defaultStyles.unitDropdownTextColor,
+        '--hover-background-color': defaultStyles.unitDropdownHoverBackgroundColor,
+        '--hover-text-color': defaultStyles.unitDropdownHoverTextColor,
+        '--font-size': `${this.fontSize ?? defaultStyles.unitDropdownFontSize}px`,
+      }
     }
   },
   watch: {
@@ -55,14 +72,7 @@ export default defineComponent({
     });
 
     const dropdown = this.$refs.dropdown as HTMLDivElement;
-    dropdown.style.display = 'none';
-    dropdown.style.position = 'absolute';
-    dropdown.style.backgroundColor = '#f9f9f9';
-    dropdown.style.boxShadow = '0px 8px 16px 0px rgba(0, 0, 0, 0.2)';
-    dropdown.style.padding = '5px 10px';
-    dropdown.style.fontSize = '12px';
-    dropdown.style.textAlign = 'right';
-    dropdown.style.zIndex = '10';
+    Object.keys(this.styles).forEach(prop => dropdown.style.setProperty(prop, this.styles[prop]));
 
     document.body.appendChild(dropdown);
   },
@@ -102,6 +112,40 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+:root {
+  .vbme-units-dropdown__content {
+    display: none;
+    position: absolute;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: var(--font-size);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    text-align: right;
+    border-radius: 3px;
+    z-index: 10;
+  }
+
+  .vbme-units-dropdown__content__item {
+    padding: 2px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--hover-background-color);
+      color: var(--hover-text-color);
+    }
+    
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+  }
+}
+
 .units-dropdown {
   display: inline-block;
   font-size: 12px;
@@ -120,16 +164,5 @@ export default defineComponent({
     align-items: center;
     gap: 2px;
   }
-
-  // .units-dropdown__content {
-  //   display: none;
-  //   position: absolute;
-  //   right: 0;
-  //   background-color: #f9f9f9;
-  //   width: 40px;
-  //   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  //   padding: 5px 10px;
-  //   z-index: 10;
-  // }
 }
 </style>

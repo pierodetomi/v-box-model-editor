@@ -1,6 +1,7 @@
 <template>
   <div ref="margin"
        class="margin-container"
+       :style="styles"
        @mouseenter.stop="() => { makeAllWhiteExcept($refs.margin as HTMLDivElement); }"
        @mouseleave.stop="() => { resetWhite($refs.border, $refs.padding, $refs.size); }">
     <div class="margin-container__label">
@@ -22,8 +23,11 @@
                      @update:value="value => onValueChange('margin', 'top', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.top"
-                            :availableUnits="availableUnits"
+                            :availableUnits="options.availableUnits"
                             :value="margin.topUnit"
+                            :background-color="options.style.unitDropdownBackgroundColor"
+                            :text-color="options.style.unitDropdownTextColor"
+                            :font-size="options.style.unitDropdownFontSize"
                             @update:value="selectedUnit => { setAndNotify('margin', margin, model => setUnit(model, selectedUnit, 'top')) }">
       </BoxModelUnitSelector>
     </div>
@@ -33,8 +37,11 @@
                      @update:value="value => onValueChange('margin', 'left', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.left"
-                            :availableUnits="availableUnits"
+                            :availableUnits="options.availableUnits"
                             :value="margin.leftUnit"
+                            :background-color="options.style.unitDropdownBackgroundColor"
+                            :text-color="options.style.unitDropdownTextColor"
+                            :font-size="options.style.unitDropdownFontSize"
                             @update:value="selectedUnit => { setAndNotify('margin', margin, model => setUnit(model, selectedUnit, 'left')) }">
       </BoxModelUnitSelector>
     </div>
@@ -44,8 +51,11 @@
                      @update:value="value => onValueChange('margin', 'right', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.right"
-                            :availableUnits="availableUnits"
+                            :availableUnits="options.availableUnits"
                             :value="margin.rightUnit"
+                            :background-color="options.style.unitDropdownBackgroundColor"
+                            :text-color="options.style.unitDropdownTextColor"
+                            :font-size="options.style.unitDropdownFontSize"
                             @update:value="selectedUnit => { setAndNotify('margin', margin, model => setUnit(model, selectedUnit, 'right')) }">
       </BoxModelUnitSelector>
     </div>
@@ -55,8 +65,11 @@
                      @update:value="value => onValueChange('margin', 'bottom', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.bottom"
-                            :availableUnits="availableUnits"
+                            :availableUnits="options.availableUnits"
                             :value="margin.bottomUnit"
+                            :background-color="options.style.unitDropdownBackgroundColor"
+                            :text-color="options.style.unitDropdownTextColor"
+                            :font-size="options.style.unitDropdownFontSize"
                             @update:value="selectedUnit => { setAndNotify('margin', margin, model => setUnit(model, selectedUnit, 'bottom')) }">
       </BoxModelUnitSelector>
     </div>
@@ -84,8 +97,11 @@
                        @update:value="value => onValueChange('border', 'top', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.top"
-                              :availableUnits="availableUnits"
+                              :availableUnits="options.availableUnits"
                               :value="border.topUnit"
+                              :background-color="options.style.unitDropdownBackgroundColor"
+                              :text-color="options.style.unitDropdownTextColor"
+                              :font-size="options.style.unitDropdownFontSize"
                               @update:value="selectedUnit => { setAndNotify('border', border, model => setUnit(model, selectedUnit, 'top')) }">
         </BoxModelUnitSelector>
       </div>
@@ -95,8 +111,11 @@
                        @update:value="value => onValueChange('border', 'left', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.left"
-                              :availableUnits="availableUnits"
+                              :availableUnits="options.availableUnits"
                               :value="border.leftUnit"
+                              :background-color="options.style.unitDropdownBackgroundColor"
+                              :text-color="options.style.unitDropdownTextColor"
+                              :font-size="options.style.unitDropdownFontSize"
                               @update:value="selectedUnit => { setAndNotify('border', border, model => setUnit(model, selectedUnit, 'left')) }">
         </BoxModelUnitSelector>
       </div>
@@ -106,8 +125,11 @@
                        @update:value="value => onValueChange('border', 'right', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.right"
-                              :availableUnits="availableUnits"
+                              :availableUnits="options.availableUnits"
                               :value="border.rightUnit"
+                              :background-color="options.style.unitDropdownBackgroundColor"
+                              :text-color="options.style.unitDropdownTextColor"
+                              :font-size="options.style.unitDropdownFontSize"
                               @update:value="selectedUnit => { setAndNotify('border', border, model => setUnit(model, selectedUnit, 'right')) }">
         </BoxModelUnitSelector>
       </div>
@@ -117,8 +139,11 @@
                        @update:value="value => onValueChange('border', 'bottom', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.bottom"
-                              :availableUnits="availableUnits"
+                              :availableUnits="options.availableUnits"
                               :value="border.bottomUnit"
+                              :background-color="options.style.unitDropdownBackgroundColor"
+                              :text-color="options.style.unitDropdownTextColor"
+                              :font-size="options.style.unitDropdownFontSize"
                               @update:value="selectedUnit => { setAndNotify('border', border, model => setUnit(model, selectedUnit, 'bottom')) }">
         </BoxModelUnitSelector>
       </div>
@@ -146,8 +171,11 @@
                          @update:value="value => onValueChange('padding', 'top', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.top"
-                                :availableUnits="availableUnits"
+                                :availableUnits="options.availableUnits"
                                 :value="padding.topUnit"
+                                :background-color="options.style.unitDropdownBackgroundColor"
+                                :text-color="options.style.unitDropdownTextColor"
+                                :font-size="options.style.unitDropdownFontSize"
                                 @update:value="selectedUnit => { setAndNotify('padding', padding, model => setUnit(model, selectedUnit, 'top')) }">
           </BoxModelUnitSelector>
         </div>
@@ -157,8 +185,11 @@
                          @update:value="value => onValueChange('padding', 'left', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.left"
-                                :availableUnits="availableUnits"
+                                :availableUnits="options.availableUnits"
                                 :value="padding.leftUnit"
+                                :background-color="options.style.unitDropdownBackgroundColor"
+                                :text-color="options.style.unitDropdownTextColor"
+                                :font-size="options.style.unitDropdownFontSize"
                                 @update:value="selectedUnit => { setAndNotify('padding', padding, model => setUnit(model, selectedUnit, 'left')) }">
           </BoxModelUnitSelector>
         </div>
@@ -168,8 +199,11 @@
                          @update:value="value => onValueChange('padding', 'right', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.right"
-                                :availableUnits="availableUnits"
+                                :availableUnits="options.availableUnits"
                                 :value="padding.rightUnit"
+                                :background-color="options.style.unitDropdownBackgroundColor"
+                                :text-color="options.style.unitDropdownTextColor"
+                                :font-size="options.style.unitDropdownFontSize"
                                 @update:value="selectedUnit => { setAndNotify('padding', padding, model => setUnit(model, selectedUnit, 'right')) }">
           </BoxModelUnitSelector>
         </div>
@@ -179,8 +213,11 @@
                          @update:value="value => onValueChange('padding', 'bottom', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.bottom"
-                                :availableUnits="availableUnits"
+                                :availableUnits="options.availableUnits"
                                 :value="padding.bottomUnit"
+                                :background-color="options.style.unitDropdownBackgroundColor"
+                                :text-color="options.style.unitDropdownTextColor"
+                                :font-size="options.style.unitDropdownFontSize"
                                 @update:value="selectedUnit => { setAndNotify('padding', padding, model => setUnit(model, selectedUnit, 'bottom')) }">
           </BoxModelUnitSelector>
         </div>
@@ -203,8 +240,11 @@
                      @blur="() => { editingMeasure = null; }" />
 
               <BoxModelUnitSelector v-show="size.width"
-                                    :availableUnits="availableUnits"
+                                    :availableUnits="options.availableUnits"
                                     :value="size.widthUnit"
+                                    :background-color="options.style.unitDropdownBackgroundColor"
+                                    :text-color="options.style.unitDropdownTextColor"
+                                    :font-size="options.style.unitDropdownFontSize"
                                     @update:value="selectedUnit => { setAndNotify('size', size, model => setUnit(model, selectedUnit, 'width')) }" />
             </div>
 
@@ -220,8 +260,11 @@
                      @change="event => { onSizeChange('height', event); }"
                      @blur="() => { editingMeasure = null; }" />
               <BoxModelUnitSelector v-show="size.height"
-                                    :availableUnits="availableUnits"
+                                    :availableUnits="options.availableUnits"
                                     :value="size.heightUnit"
+                                    :background-color="options.style.unitDropdownBackgroundColor"
+                                    :text-color="options.style.unitDropdownTextColor"
+                                    :font-size="options.style.unitDropdownFontSize"
                                     @update:value="selectedUnit => { setAndNotify('size', size, model => setUnit(model, selectedUnit, 'height')) }" />
             </div>
           </div>
@@ -239,15 +282,29 @@ import { SizeModel } from '../models/size-model';
 import BoxModelUnitSelector from './BoxModelUnitSelector.vue';
 import BoxModelValue from './BoxModelValue.vue';
 import SvgIcon from '@jamescoyle/vue-icon';
+import { BoxModelEditorOptions } from '../models/box-model-editor-options';
 
 export default defineComponent({
   components: { BoxModelValue, BoxModelUnitSelector, SvgIcon },
   props: {
-    availableUnits: Array<string>,
     margin: BoxModel,
     border: BoxModel,
     padding: BoxModel,
-    size: SizeModel
+    size: SizeModel,
+    options: BoxModelEditorOptions
+  },
+  computed: {
+    styles() {
+      return {
+        '--borders-color': this.options.style.bordersColor,
+        '--margin-background-color': this.options.style.marginBackgroundColor,
+        '--border-background-color': this.options.style.borderBackgroundColor,
+        '--padding-background-color': this.options.style.paddingBackgroundColor,
+        '--size-background-color': this.options.style.sizeBackgroundColor,
+        '--text-color': this.options.style.textColor,
+        '--input-font-size': `${this.options.style.inputFontSize}px`
+      }
+    }
   },
   data() {
     const editingMeasure: string = null as any;
@@ -343,16 +400,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$input-font-size: 11px;
-$input-color: #000;
-
-$containers-border-color: #000;
 $containers-padding: 30px 35px;
-
-$margin-container-background: #f9cc9d;
-$border-container-background: #ffeebc;
-$padding-container-background: #c4dfb8;
-$size-container-background: #a0c6e8;
 
 .horizontal-input {
   position: absolute;
@@ -362,16 +410,16 @@ $size-container-background: #a0c6e8;
   gap: 2px;
   left: 50%;
   transform: translateX(-50%);
-  color: $input-color;
-  font-size: $input-font-size;
+  color: var(--text-color);
+  font-size: var(--input-font-size);
 }
 
 .vertical-input {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: $input-color;
-  font-size: $input-font-size;
+  color: var(--text-color);
+  font-size: var(--input-font-size);
   text-align: center;
   width: 28px;
 
@@ -396,7 +444,7 @@ $size-container-background: #a0c6e8;
   position: absolute;
   top: 0;
   left: 4px;
-  color: #000;
+  color: var(--text-color);
   font-size: 10px;
   display: flex;
   flex-direction: row;
@@ -418,9 +466,9 @@ $size-container-background: #a0c6e8;
   width: 300px;
   height: 220px;
   position: relative;
-  background: $margin-container-background;
+  background: var(--margin-background-color);
   padding: $containers-padding;
-  border: 1px dashed $containers-border-color;
+  border: 1px dashed var(--borders-color);
   box-sizing: border-box;
 
   &.white {
@@ -456,9 +504,9 @@ $size-container-background: #a0c6e8;
   width: 100%;
   height: 100%;
   position: relative;
-  background: $border-container-background;
+  background: var(--border-background-color);
   padding: $containers-padding;
-  border: 1px solid $containers-border-color;
+  border: 1px solid var(--borders-color);
   box-sizing: border-box;
 
   &.white {
@@ -494,9 +542,9 @@ $size-container-background: #a0c6e8;
   width: 100%;
   height: 100%;
   position: relative;
-  background: $padding-container-background;
+  background: var(--padding-background-color);
   padding: $containers-padding;
-  border: 1px dashed $containers-border-color;
+  border: 1px dashed var(--borders-color);
   box-sizing: border-box;
 
   &.white {
@@ -532,9 +580,9 @@ $size-container-background: #a0c6e8;
   width: 100%;
   height: 100%;
   position: relative;
-  background: $size-container-background;
+  background: var(--size-background-color);
   padding: 0;
-  border: 1px solid $containers-border-color;
+  border: 1px solid var(--borders-color);
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -547,7 +595,7 @@ $size-container-background: #a0c6e8;
   .size-container__value-container {
     display: flex;
     flex-direction: row;
-    font-size: $input-font-size + 1px;
+    font-size: var(--input-font-size);
 
     .width {
       display: flex;
