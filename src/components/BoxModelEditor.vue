@@ -20,6 +20,7 @@
     <div class="margin-input__top">
       <BoxModelValue :editing="editingMeasure === 'margin-top'"
                      :value="margin.top"
+                     :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'top', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.top"
@@ -34,6 +35,7 @@
     <div class="margin-input__left">
       <BoxModelValue :editing="editingMeasure === 'margin-left'"
                      :value="margin.left"
+                     :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'left', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.left"
@@ -48,6 +50,7 @@
     <div class="margin-input__right">
       <BoxModelValue :editing="editingMeasure === 'margin-right'"
                      :value="margin.right"
+                     :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'right', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.right"
@@ -62,6 +65,7 @@
     <div class="margin-input__bottom">
       <BoxModelValue :editing="editingMeasure === 'margin-bottom'"
                      :value="margin.bottom"
+                     :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'bottom', value)">
       </BoxModelValue>
       <BoxModelUnitSelector v-show="margin.bottom"
@@ -94,6 +98,7 @@
       <div class="border-input__top">
         <BoxModelValue :editing="editingMeasure === 'border-top'"
                        :value="border.top"
+                       :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'top', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.top"
@@ -108,6 +113,7 @@
       <div class="border-input__left">
         <BoxModelValue :editing="editingMeasure === 'border-left'"
                        :value="border.left"
+                       :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'left', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.left"
@@ -122,6 +128,7 @@
       <div class="border-input__right">
         <BoxModelValue :editing="editingMeasure === 'border-right'"
                        :value="border.right"
+                       :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'right', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.right"
@@ -136,6 +143,7 @@
       <div class="border-input__bottom">
         <BoxModelValue :editing="editingMeasure === 'border-bottom'"
                        :value="border.bottom"
+                       :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'bottom', value)">
         </BoxModelValue>
         <BoxModelUnitSelector v-show="border.bottom"
@@ -168,6 +176,7 @@
         <div class="padding-input__top">
           <BoxModelValue :editing="editingMeasure === 'padding-top'"
                          :value="padding.top"
+                         :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'top', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.top"
@@ -182,6 +191,7 @@
         <div class="padding-input__left">
           <BoxModelValue :editing="editingMeasure === 'padding-left'"
                          :value="padding.left"
+                         :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'left', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.left"
@@ -196,6 +206,7 @@
         <div class="padding-input__right">
           <BoxModelValue :editing="editingMeasure === 'padding-right'"
                          :value="padding.right"
+                         :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'right', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.right"
@@ -210,6 +221,7 @@
         <div class="padding-input__bottom">
           <BoxModelValue :editing="editingMeasure === 'padding-bottom'"
                          :value="padding.bottom"
+                         :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'bottom', value)">
           </BoxModelValue>
           <BoxModelUnitSelector v-show="padding.bottom"
@@ -233,7 +245,6 @@
                 {{ size.width ?? '...' }}
               </span>
               <input v-else
-                     type="number"
                      ref="inputValue"
                      :value="size.width"
                      @change="event => { onSizeChange('width', event); }"
@@ -254,7 +265,6 @@
                 {{ size.height ?? '...' }}
               </span>
               <input v-else
-                     type="number"
                      ref="inputValue"
                      :value="size.height"
                      @change="event => { onSizeChange('height', event); }"
@@ -608,6 +618,10 @@ $containers-padding: 30px 35px;
       > :nth-child(1) {
         margin-bottom: -8px;
       }
+
+      input {
+        font-size: var(--input-font-size);
+      }
     }
 
     .height {
@@ -619,6 +633,10 @@ $containers-padding: 30px 35px;
 
       > :nth-child(1) {
         margin-bottom: -8px;
+      }
+
+      input {
+        font-size: var(--input-font-size);
       }
     }
   }

@@ -1,16 +1,17 @@
 <template>
-  <span v-if="!isEditing"
-        class="value-label"
-        @click.stop="beginEdit">
-    {{ value ?? '-' }}
-  </span>
-
-  <input v-else
-         ref="inputValue"
-         type="number"
-         :value="editValue"
-         @change="onValueChange"
-         @blur="endEdit" />
+  <div :style="styles">
+    <span v-if="!isEditing"
+          class="value-label"
+          @click.stop="beginEdit">
+      {{ value ?? '-' }}
+    </span>
+  
+    <input v-else
+           ref="inputValue"
+           :value="editValue"
+           @change="onValueChange"
+           @blur="endEdit" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -20,6 +21,14 @@ export default defineComponent({
   props: {
     editing: Boolean as PropType<boolean>,
     value: Number as PropType<number>,
+    fontSize: Number as PropType<number>
+  },
+  computed: {
+    styles() {
+      return {
+        '--font-size': `${this.fontSize ?? 11}px`
+      };
+    }
   },
   data() {
     return {
@@ -57,9 +66,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$input-font-size: 11px;
-
 .value-label {
+  font-size: var(--font-size);
   cursor: pointer;
 }
 
@@ -71,19 +79,19 @@ input {
   text-align: right;
   border: 1px solid #d3d3d3;
   border-radius: 2px;
-  font-size: $input-font-size;
+  font-size: var(--font-size);
 
-  /* Chrome, Safari, Edge, Opera */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+  // /* Chrome, Safari, Edge, Opera */
+  // &::-webkit-outer-spin-button,
+  // &::-webkit-inner-spin-button {
+  //   -webkit-appearance: none;
+  //   margin: 0;
+  // }
 
-  /* Firefox */
-  &[type=number] {
-    -moz-appearance: textfield;
-  }
+  // /* Firefox */
+  // &[type=number] {
+  //   -moz-appearance: textfield;
+  // }
 
   &:focus,
   &:active {
