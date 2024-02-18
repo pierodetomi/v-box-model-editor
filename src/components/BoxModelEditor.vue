@@ -23,7 +23,7 @@
                      :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'top', value)">
       </BoxModelValue>
-      <BoxModelUnitSelector v-show="margin.top"
+      <BoxModelUnitSelector v-show="margin.top && !isNaN(+margin.top)"
                             :availableUnits="options.availableUnits"
                             :value="margin.topUnit"
                             :background-color="options.style.unitDropdownBackgroundColor"
@@ -38,7 +38,7 @@
                      :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'left', value)">
       </BoxModelValue>
-      <BoxModelUnitSelector v-show="margin.left"
+      <BoxModelUnitSelector v-show="margin.left && !isNaN(+margin.left)"
                             :availableUnits="options.availableUnits"
                             :value="margin.leftUnit"
                             :background-color="options.style.unitDropdownBackgroundColor"
@@ -53,7 +53,7 @@
                      :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'right', value)">
       </BoxModelValue>
-      <BoxModelUnitSelector v-show="margin.right"
+      <BoxModelUnitSelector v-show="margin.right && !isNaN(+margin.right)"
                             :availableUnits="options.availableUnits"
                             :value="margin.rightUnit"
                             :background-color="options.style.unitDropdownBackgroundColor"
@@ -68,7 +68,7 @@
                      :font-size="options.style.inputFontSize"
                      @update:value="value => onValueChange('margin', 'bottom', value)">
       </BoxModelValue>
-      <BoxModelUnitSelector v-show="margin.bottom"
+      <BoxModelUnitSelector v-show="margin.bottom && !isNaN(+margin.bottom)"
                             :availableUnits="options.availableUnits"
                             :value="margin.bottomUnit"
                             :background-color="options.style.unitDropdownBackgroundColor"
@@ -101,7 +101,7 @@
                        :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'top', value)">
         </BoxModelValue>
-        <BoxModelUnitSelector v-show="border.top"
+        <BoxModelUnitSelector v-show="border.top && !isNaN(+border.top)"
                               :availableUnits="options.availableUnits"
                               :value="border.topUnit"
                               :background-color="options.style.unitDropdownBackgroundColor"
@@ -116,7 +116,7 @@
                        :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'left', value)">
         </BoxModelValue>
-        <BoxModelUnitSelector v-show="border.left"
+        <BoxModelUnitSelector v-show="border.left && !isNaN(+border.left)"
                               :availableUnits="options.availableUnits"
                               :value="border.leftUnit"
                               :background-color="options.style.unitDropdownBackgroundColor"
@@ -131,7 +131,7 @@
                        :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'right', value)">
         </BoxModelValue>
-        <BoxModelUnitSelector v-show="border.right"
+        <BoxModelUnitSelector v-show="border.right && !isNaN(+border.right)"
                               :availableUnits="options.availableUnits"
                               :value="border.rightUnit"
                               :background-color="options.style.unitDropdownBackgroundColor"
@@ -146,7 +146,7 @@
                        :font-size="options.style.inputFontSize"
                        @update:value="value => onValueChange('border', 'bottom', value)">
         </BoxModelValue>
-        <BoxModelUnitSelector v-show="border.bottom"
+        <BoxModelUnitSelector v-show="border.bottom && !isNaN(+border.bottom)"
                               :availableUnits="options.availableUnits"
                               :value="border.bottomUnit"
                               :background-color="options.style.unitDropdownBackgroundColor"
@@ -179,7 +179,7 @@
                          :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'top', value)">
           </BoxModelValue>
-          <BoxModelUnitSelector v-show="padding.top"
+          <BoxModelUnitSelector v-show="padding.top && !isNaN(+padding.top)"
                                 :availableUnits="options.availableUnits"
                                 :value="padding.topUnit"
                                 :background-color="options.style.unitDropdownBackgroundColor"
@@ -194,7 +194,7 @@
                          :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'left', value)">
           </BoxModelValue>
-          <BoxModelUnitSelector v-show="padding.left"
+          <BoxModelUnitSelector v-show="padding.left && !isNaN(+padding.left)"
                                 :availableUnits="options.availableUnits"
                                 :value="padding.leftUnit"
                                 :background-color="options.style.unitDropdownBackgroundColor"
@@ -209,7 +209,7 @@
                          :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'right', value)">
           </BoxModelValue>
-          <BoxModelUnitSelector v-show="padding.right"
+          <BoxModelUnitSelector v-show="padding.right && !isNaN(+padding.right)"
                                 :availableUnits="options.availableUnits"
                                 :value="padding.rightUnit"
                                 :background-color="options.style.unitDropdownBackgroundColor"
@@ -224,7 +224,7 @@
                          :font-size="options.style.inputFontSize"
                          @update:value="value => onValueChange('padding', 'bottom', value)">
           </BoxModelValue>
-          <BoxModelUnitSelector v-show="padding.bottom"
+          <BoxModelUnitSelector v-show="padding.bottom && !isNaN(+padding.bottom)"
                                 :availableUnits="options.availableUnits"
                                 :value="padding.bottomUnit"
                                 :background-color="options.style.unitDropdownBackgroundColor"
@@ -247,10 +247,11 @@
               <input v-else
                      ref="inputValue"
                      :value="size.width"
+                     @keyup.enter="event => { onSizeChange('width', event); editingMeasure = null; }"
                      @change="event => { onSizeChange('width', event); }"
                      @blur="() => { editingMeasure = null; }" />
 
-              <BoxModelUnitSelector v-show="size.width"
+              <BoxModelUnitSelector v-show="size.width && !isNaN(+size.width)"
                                     :availableUnits="options.availableUnits"
                                     :value="size.widthUnit"
                                     :background-color="options.style.unitDropdownBackgroundColor"
@@ -267,9 +268,10 @@
               <input v-else
                      ref="inputValue"
                      :value="size.height"
+                     @keyup.enter="event => { onSizeChange('height', event); editingMeasure = null; }"
                      @change="event => { onSizeChange('height', event); }"
                      @blur="() => { editingMeasure = null; }" />
-              <BoxModelUnitSelector v-show="size.height"
+              <BoxModelUnitSelector v-show="size.height && !isNaN(+size.height)"
                                     :availableUnits="options.availableUnits"
                                     :value="size.heightUnit"
                                     :background-color="options.style.unitDropdownBackgroundColor"
@@ -293,6 +295,7 @@ import BoxModelUnitSelector from './BoxModelUnitSelector.vue';
 import BoxModelValue from './BoxModelValue.vue';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { BoxModelEditorOptions } from '../models/box-model-editor-options';
+import { InputHelper } from '../helpers/input.helper';
 
 export default defineComponent({
   components: { BoxModelValue, BoxModelUnitSelector, SvgIcon },
@@ -393,14 +396,9 @@ export default defineComponent({
     },
     onSizeChange(target: 'width' | 'height', event: Event) {
       const eventTarget = event.target as HTMLInputElement;
-      let value = +eventTarget.value;
-
-      if (!value || isNaN(value)) {
-        value = null;
-      }
 
       const model: SizeModel = { ...this.size };
-      model[target] = value;
+      model[target] = InputHelper.getNormalizedValue(eventTarget.value);
 
       this.$emit(`update:size`, model);
     }

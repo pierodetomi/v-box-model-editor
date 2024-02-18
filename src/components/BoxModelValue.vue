@@ -9,6 +9,7 @@
     <input v-else
            ref="inputValue"
            :value="editValue"
+           @keyup.enter="event => { onValueChange(event); endEdit(); }"
            @change="onValueChange"
            @blur="endEdit" />
   </div>
@@ -16,6 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue';
+import { InputHelper } from '../helpers/input.helper';
 
 export default defineComponent({
   props: {
@@ -53,13 +55,7 @@ export default defineComponent({
       this.$emit('update:value', this.editValue);
     },
     getNormalizedValue(value: any) {
-      value = +value;
-
-      if (!value || isNaN(value)) {
-        value = null;
-      }
-
-      return value;
+      return InputHelper.getNormalizedValue(value);
     }
   }
 });
@@ -80,18 +76,6 @@ input {
   border: 1px solid #d3d3d3;
   border-radius: 2px;
   font-size: var(--font-size);
-
-  // /* Chrome, Safari, Edge, Opera */
-  // &::-webkit-outer-spin-button,
-  // &::-webkit-inner-spin-button {
-  //   -webkit-appearance: none;
-  //   margin: 0;
-  // }
-
-  // /* Firefox */
-  // &[type=number] {
-  //   -moz-appearance: textfield;
-  // }
 
   &:focus,
   &:active {
