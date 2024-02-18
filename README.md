@@ -1,6 +1,6 @@
 # Vue Box Model Editor
 
-![npm package version](https://img.shields.io/npm/v/v-box-model-editor?logo=npm) [![build](https://github.com/pierodetomi/v-box-model-editor/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/pierodetomi/v-box-model-editor/actions/workflows/build.yml)
+![npm package version](https://img.shields.io/npm/v/v-box-model-editor?logo=npm) [![build](https://github.com/pierodetomi/v-box-model-editor/actions/workflows/build.yml/badge.svg)](https://github.com/pierodetomi/v-box-model-editor/actions/workflows/build.yml)
 
 **Box Model Editor** is a Vue component that allows the editing of the box model of a DOM element.
 This is totally inspired to the Chrome Dev Tools component.
