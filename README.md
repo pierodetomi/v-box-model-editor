@@ -25,8 +25,8 @@ This library exports the ```BoxModelEditor``` component. You can use it as follo
 
 ```typescript
 // INSIDE YOUR CODE
-import { BoxModelEditor } from 'v-box-model-editor'; // Import component
-import 'v-box-model-editor/style.css'; // Import component's style
+import { BoxModelEditor } from '@pierodetomi/v-box-model-editor'; // Import component
+import '@pierodetomi/v-box-model-editor/style.css'; // Import component's style
 ```
 
 ```HTML
