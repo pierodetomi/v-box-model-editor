@@ -94,13 +94,18 @@ export default defineComponent({
         return;
       }
 
-      // Set correct position for dropdown
       const labelBounds = label.getBoundingClientRect();
+      
+      // We have to set the display to 'block' in order to get the correct dimensions of the dropdown
+      // When the display is set to 'none', getBoundingClientRect() returns 0 for width and height
+      dropdown.style.display = 'block';
+      
       const dropdownBounds = dropdown.getBoundingClientRect();
+      
+      // Set correct position for dropdown
       dropdown.style.top = `${labelBounds.top + labelBounds.height}px`;
       dropdown.style.left = `${labelBounds.left + labelBounds.width - dropdownBounds.width}px`;
 
-      dropdown.style.display = 'block';
     },
     updateValue(selectedUnit: string) {
       this.selectedUnit = selectedUnit;
