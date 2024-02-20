@@ -612,6 +612,7 @@ $containers-padding: 30px 35px;
       border-right: 1px dashed #669dcf;
       padding-right: 2px;
       justify-content: center;
+      color: var(--text-color);
 
       > :nth-child(1) {
         margin-bottom: -8px;
@@ -628,6 +629,7 @@ $containers-padding: 30px 35px;
       align-items: flex-start;
       padding-left: 2px;
       justify-content: center;
+      color: var(--text-color);
 
       > :nth-child(1) {
         margin-bottom: -8px;
