@@ -93,6 +93,18 @@
                  :path="border.isLinked ? linkIcon : unlinkIcon"
                  @click="toggleLinkStatus('border')">
         </SvgIcon>
+
+        <div class="border-container__label__spacer">&nbsp;</div>
+
+        <BorderStyleSolid v-if="border.style === 'solid'"
+                          class="toggle-border-style-icon"
+                          @click.stop="toggleBorderStyle" />
+        <BorderStyleDashed v-if="border.style === 'dashed'"
+                           class="toggle-border-style-icon"
+                           @click.stop="toggleBorderStyle" />
+        <BorderStyleDotted v-if="border.style === 'dotted'"
+                           class="toggle-border-style-icon"
+                           @click.stop="toggleBorderStyle" />
       </div>
 
       <div class="border-input__top">
@@ -289,6 +301,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { BoxModel } from '../models/box-model';
+import { BorderModel } from '../models/border-model';
 import { mdiMenuDown, mdiLink, mdiLinkOff } from '@mdi/js';
 import { SizeModel } from '../models/size-model';
 import BoxModelUnitSelector from './BoxModelUnitSelector.vue';
@@ -296,12 +309,24 @@ import BoxModelValue from './BoxModelValue.vue';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { BoxModelEditorOptions } from '../models/box-model-editor-options';
 import { InputHelper } from '../helpers/input.helper';
+import BorderStyleDashed from './icons/BorderStyleDashed.vue';
+import BorderStyleDotted from './icons/BorderStyleDotted.vue';
+import BorderStyleSolid from './icons/BorderStyleSolid.vue';
+
+const borderStyles = ['solid', 'dashed', 'dotted'];
 
 export default defineComponent({
-  components: { BoxModelValue, BoxModelUnitSelector, SvgIcon },
+  components: {
+    BoxModelValue,
+    BoxModelUnitSelector,
+    SvgIcon,
+    BorderStyleDashed,
+    BorderStyleDotted,
+    BorderStyleSolid
+  },
   props: {
     margin: BoxModel,
-    border: BoxModel,
+    border: BorderModel,
     padding: BoxModel,
     size: SizeModel,
     options: BoxModelEditorOptions
@@ -397,10 +422,24 @@ export default defineComponent({
     onSizeChange(target: 'width' | 'height', event: Event) {
       const eventTarget = event.target as HTMLInputElement;
 
-      const model: SizeModel = { ...this.size };
+      const model: SizeModel = Object.assign(new SizeModel(), { ...this.size });
       model[target] = InputHelper.getNormalizedValue(eventTarget.value);
 
       this.$emit(`update:size`, model);
+    },
+    toggleBorderStyle() {
+      const model: BorderModel = Object.assign(new BorderModel(), { ...this.border });
+      const selectedIndex = borderStyles.indexOf(model.style);
+
+      let nextIndex = selectedIndex + 1;
+
+      if (nextIndex === borderStyles.length) {
+        nextIndex = 0;
+      }
+
+      model.style = borderStyles[nextIndex];
+
+      this.$emit('update:border', model);
     }
   }
 });
@@ -452,6 +491,7 @@ $containers-padding: 30px 35px;
   position: absolute;
   top: 0;
   left: 4px;
+  right: 4px;
   color: var(--text-color);
   font-size: 10px;
   display: flex;
@@ -459,7 +499,21 @@ $containers-padding: 30px 35px;
   align-items: center;
   gap: 2px;
 
+  .border-container__label__spacer {
+    flex: 1;
+  }
+
   .toggle-lock-icon {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: 200ms opacity;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .toggle-border-style-icon {
     opacity: 0.5;
     cursor: pointer;
     transition: 200ms opacity;

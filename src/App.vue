@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import BoxModelEditor from './components/BoxModelEditor.vue';
 import { BoxModel } from './models/box-model';
+import { BorderModel } from './models/border-model';
 import { SizeModel } from './models/size-model';
 import { BoxModelEditorOptions } from './models/box-model-editor-options';
 
@@ -10,7 +11,7 @@ export default defineComponent({
   data() {
     return {
       margin: new BoxModel(),
-      border: new BoxModel(),
+      border: new BorderModel(),
       padding: new BoxModel(),
       size: new SizeModel(),
       options: new BoxModelEditorOptions()

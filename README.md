@@ -25,13 +25,13 @@ This library exports the ```BoxModelEditor``` component. You can use it as follo
 
 ```typescript
 // INSIDE YOUR CODE
-import { BoxModel, SizeModel, BoxModelEditorOptions, BoxModelEditor } from '@pierodetomi/v-box-model-editor'; // Import component
+import { BoxModel, SizeModel, BorderModel, BoxModelEditorOptions, BoxModelEditor } from '@pierodetomi/v-box-model-editor'; // Import component
 import '@pierodetomi/v-box-model-editor/style.css'; // Import component's style
 
 [...]
 
 margin = new BoxModel();
-border = new BoxModel();
+border = new BorderModel();
 padding = new BoxModel();
 size = new SizeModel();
 options = new BoxModelEditorOptions();
@@ -78,8 +78,8 @@ The ```BoxModelEditorStyleOptions``` class exposes the following options:
 | ```unitDropdownFontSize``` | ```number``` | ```12``` | The font size of the text inside the units dropdown |
 
 
-## ```box``` and ```size``` models
-The ```margin```, ```border``` and ```padding``` properties use the same input/output model, the ```BoxModel```, with the following structure:
+## ```box```, ```border``` and ```size``` models
+The ```margin``` and ```padding``` properties use the same input/output model, the ```BoxModel```, with the following structure:
 
 ```TypeScript
 class BoxModel {
@@ -103,7 +103,16 @@ class BoxModel {
 }
 ```
 
+The ```border``` property uses the ```BorderModel``` input/output model, that's an extension of the ```BoxModel``` model that adds only the ```style``` property (with default value ```'solid'```):
+
+```TypeScript
+class BorderModel extends BoxModel {
+  public style: string = 'solid';
+}
+```
+
 The ```size``` property uses the ```SizeModel``` input/output model, with the following structure:
+
 
 ```TypeScript
 class SizeModel {
