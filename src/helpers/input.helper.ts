@@ -5,11 +5,15 @@ export class InputHelper {
     if (InputHelper._acceptedTextValues.includes(value)) {
       return value;
     }
+
+    if (value?.length === 0) {
+      return null;
+    }
     
     value = +value;
 
-    if (!value || isNaN(value)) {
-      value = null;
+    if (isNaN(value)) {
+      return null;
     }
 
     return value;
